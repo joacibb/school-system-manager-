@@ -1,36 +1,23 @@
 package ar.com.school.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDate;
+@Entity
+@Table(name = "Students")
+public class StudentEntity implements Serializable {
+    @Id
+    @Column(name = "id", nullable = false)
 
-public class StudentEntity{
     private Long id;
     private String name;
-    private LocalDate dob;
+    private String surname;
     private String email;
-    private Integer age;
-
-    public StudentEntity(Long id,
-                         String name,
-                         LocalDate dob,
-                         String email,
-                         Integer age) {
-        this.id = id;
-        this.name = name;
-        this.dob = dob;
-        this.email = email;
-        this.age = age;
-    }
-
-    public StudentEntity(String name,
-                         LocalDate dob,
-                         String email,
-                         Integer age) {
-        this.name = name;
-        this.dob = dob;
-        this.email = email;
-        this.age = age;
-    }
-
+    private String curse;
+    private Long phone;
     public Long getId() {
         return id;
     }
@@ -47,12 +34,12 @@ public class StudentEntity{
         this.name = name;
     }
 
-    public LocalDate getDob() {
-        return dob;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -63,22 +50,19 @@ public class StudentEntity{
         this.email = email;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getCurse() {
+        return curse;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setCurse(String curse) {
+        this.curse = curse;
     }
 
-    @Override
-    public String toString() {
-        return "StudentEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dob=" + dob +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                '}';
+    public Long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Long phone) {
+        this.phone = phone;
     }
 }
