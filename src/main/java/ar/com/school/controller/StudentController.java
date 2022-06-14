@@ -14,7 +14,7 @@ public class StudentController<Integer> {
     private StudentService studentService;
     @GetMapping(value = "api/v1/student/{id}")
     public StudentEntity getStudent(@PathVariable("id") Integer idStudent){
-        return studentService.findById(idStudent);
+        return studentService.findById((java.lang.Integer) idStudent);
     }
 
     @GetMapping(value = "api/v1/students/{course}")
@@ -29,8 +29,8 @@ public class StudentController<Integer> {
 
     @PutMapping(value = "api/v1/student/{id}")
     public <Integer> StudentEntity updateStudent(@PathVariable("id") Integer idStudent, StudentEntity student){
-        StudentEntity actuallyStudent = studentService.findById(idStudent);
-        actuallyStudent.setCurse(student.getCurse());
+        StudentEntity actuallyStudent = studentService.findById((java.lang.Integer) idStudent);
+        actuallyStudent.setCurse(student.getCourse());
         actuallyStudent.setEmail(student.getEmail());
         actuallyStudent.setName(student.getName());
         actuallyStudent.setSurname(student.getSurname());
@@ -41,6 +41,6 @@ public class StudentController<Integer> {
 
     @DeleteMapping(value = "api/v1/student/{id}")
     public void deleteStudent(@PathVariable("id") Integer id){
-        studentService.delete(id);
+        studentService.delete((java.lang.Integer) id);
     }
 }

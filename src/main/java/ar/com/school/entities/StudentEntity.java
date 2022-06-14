@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.time.LocalDate;
+
 @Entity
 @Table(name = "Students")
 public class StudentEntity implements Serializable {
@@ -16,7 +16,7 @@ public class StudentEntity implements Serializable {
     private String name;
     private String surname;
     private String email;
-    private String curse;
+    private String course;
     private Long phone;
     public Long getId() {
         return id;
@@ -50,12 +50,12 @@ public class StudentEntity implements Serializable {
         this.email = email;
     }
 
-    public String getCurse() {
-        return curse;
+    public String getCourse() {
+        return course;
     }
 
-    public void setCurse(String curse) {
-        this.curse = curse;
+    public void setCurse(String course) {
+        this.course = course;
     }
 
     public Long getPhone() {
