@@ -2,6 +2,9 @@ package ar.com.school.controller;
 
 import ar.com.school.entities.StudentEntity;
 import ar.com.school.manager.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = {"*"})
 @RequestMapping(value = "/api/v1/student")
 public class StudentController<Integer> {
-
+    @Autowired
     private StudentService studentService;
     @GetMapping(value = "api/v1/student/{id}")
     public StudentEntity getStudent(@PathVariable("id") Integer idStudent){
