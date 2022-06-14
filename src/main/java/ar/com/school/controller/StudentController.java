@@ -1,36 +1,46 @@
 package ar.com.school.controller;
 
-import ar.com.school.models.StudentDTO;
+import ar.com.school.entities.StudentEntity;
+import ar.com.school.manager.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/student")
-public class StudentController {
+@CrossOrigin(origins = {"*"})
+@RequestMapping(value = "/api/v1/student")
+public class StudentController<Integer> {
 
-
+    private StudentService studentService;
     @GetMapping(value = "api/v1/student/{id}")
-    public StudentDTO getStudent(@PathVariable("id") Long idStudent){
-        return null;
+    public StudentEntity getStudent(@PathVariable("id") Integer idStudent){
+        return studentService.findById(idStudent);
     }
 
-    @GetMapping(value = "api/v1/students/{curso}")
-    public List<StudentDTO> getStudent(@PathVariable("curso") Integer curso){
-        return null;
+    @GetMapping(value = "api/v1/students/{course}")
+    public List<StudentEntity> getStudents(@PathVariable("course") Integer course){
+        return studentService.findAll();
     }
 
     @PostMapping(value = "api/v1/student/")
-    public void postStudent(StudentDTO input){
+    public StudentEntity postStudent(@RequestBody StudentEntity student){
+        return studentService.save(student);
     }
 
-    @PutMapping(value = "api/v1/student/")
-    public List<StudentDTO> updateStudent(StudentDTO input){
-        return null;
+    @PutMapping(value = "api/v1/student/{id}")
+    public <Integer> StudentEntity updateStudent(@PathVariable("id") Integer idStudent, StudentEntity student){
+        StudentEntity actuallyStudent = studentService.findById(idStudent);
+        actuallyStudent.setCurse(student.getCurse());
+        actuallyStudent.setEmail(student.getEmail());
+        actuallyStudent.setName(student.getName());
+        actuallyStudent.setSurname(student.getSurname());
+        actuallyStudent.setPhone(student.getPhone());
+
+        return studentService.save(actuallyStudent);
     }
 
     @DeleteMapping(value = "api/v1/student/{id}")
-    public List<StudentDTO> deleteStudent(@PathVariable("id") Long id){
-        return null;
+    public void deleteStudent(@PathVariable("id") Integer id){
+        studentService.delete(id);
     }
 }
