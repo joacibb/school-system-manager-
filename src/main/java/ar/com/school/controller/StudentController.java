@@ -35,8 +35,8 @@ public class StudentController{
     }
 
     @PutMapping(value = "/student/{id}")
-    public <Integer> StudentEntity updateStudent(@PathVariable("id") Integer idStudent, StudentEntity student){
-        StudentEntity actuallyStudent = studentService.findById((java.lang.Integer) idStudent);
+    public StudentEntity updateStudent(@PathVariable("id") Integer idStudent, StudentEntity student){
+        StudentEntity actuallyStudent = studentService.findById(idStudent);
         actuallyStudent.setCurse(student.getCourse());
         actuallyStudent.setEmail(student.getEmail());
         actuallyStudent.setName(student.getName());

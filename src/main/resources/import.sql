@@ -1,1 +1,2 @@
 INSERT INTO students(id, course, name, surname, email, phone) values('40961345','Ingenieria','Joaquin','Cibanal','joaquincibanal@gmail.com','2984325457');
+INSERT INTO students(id, course, name, surname, email, phone) values('41543321','Psicologia','Anibal','Gimenez','a.gimenez22@gmail.com','1154332134');
