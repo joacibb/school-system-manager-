@@ -11,8 +11,14 @@ import java.util.List;
 @CrossOrigin(origins = {"*"})
 @RequestMapping(value = "/api")
 public class StudentController{
-    @Autowired
+
     private StudentService studentService;
+
+    @Autowired
+    public StudentController(StudentService studentService){
+        this.studentService = studentService;
+    }
+
     @GetMapping(value = "/students/{id}")
     public StudentEntity getStudent(@PathVariable("id") Integer idStudent){
         return studentService.findById(idStudent);
