@@ -3,34 +3,32 @@ package ar.com.school.controller;
 import ar.com.school.entities.StudentEntity;
 import ar.com.school.manager.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"*"})
-@RequestMapping(value = "/api/v1/student")
-public class StudentController<Integer> {
+@RequestMapping(value = "/api")
+public class StudentController{
     @Autowired
     private StudentService studentService;
-    @GetMapping(value = "api/v1/student/{id}")
+    @GetMapping(value = "/students/{id}")
     public StudentEntity getStudent(@PathVariable("id") Integer idStudent){
-        return studentService.findById((java.lang.Integer) idStudent);
+        return studentService.findById(idStudent);
     }
 
-    @GetMapping(value = "api/v1/students/{course}")
-    public List<StudentEntity> getStudents(@PathVariable("course") Integer course){
+    @GetMapping(value = "/students")
+    public List<StudentEntity> getStudents(){
         return studentService.findAll();
     }
 
-    @PostMapping(value = "api/v1/student/")
+    @PostMapping(value = "/student")
     public StudentEntity postStudent(@RequestBody StudentEntity student){
         return studentService.save(student);
     }
 
-    @PutMapping(value = "api/v1/student/{id}")
+    @PutMapping(value = "/student/{id}")
     public <Integer> StudentEntity updateStudent(@PathVariable("id") Integer idStudent, StudentEntity student){
         StudentEntity actuallyStudent = studentService.findById((java.lang.Integer) idStudent);
         actuallyStudent.setCurse(student.getCourse());
@@ -42,8 +40,8 @@ public class StudentController<Integer> {
         return studentService.save(actuallyStudent);
     }
 
-    @DeleteMapping(value = "api/v1/student/{id}")
+    @DeleteMapping(value = "/student/{id}")
     public void deleteStudent(@PathVariable("id") Integer id){
-        studentService.delete((java.lang.Integer) id);
+        studentService.delete(id);
     }
 }
