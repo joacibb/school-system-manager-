@@ -1,35 +1,50 @@
 package ar.com.school.controller;
 
-import ar.com.school.models.EmployeeDTO;
+import ar.com.school.*;
+import ar.com.school.entities.EmployeeEntity;
+import ar.com.school.manager.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/v1/employee/")
+@CrossOrigin(origins = {"*"})
+@RequestMapping(value = "/api")
 public class EmployeeController {
-
-    @GetMapping(value = "api/v1/employee/{id}")
-    public EmployeeDTO getEmployee(@PathVariable("id") Long idStudent){
-        return null;
+    private EmployeeService employeeService;
+    @Autowired
+    public EmployeeController(EmployeeService employeeService){
+        this.employeeService = employeeService;
+    }
+    @GetMapping(value = "/employee/{id}")
+    public EmployeeEntity getEmployee(@PathVariable("id") Integer idEmployee){
+        return employeeService.findByID(idEmployee);
     }
 
-    @GetMapping(value = "api/v1/employee/{employeeType}")
-    public List<EmployeeDTO> getProfessor(@PathVariable("employeeType") String employeeType){
-        return null;
+    @GetMapping(value = "/employees")
+    public List<EmployeeEntity> getStudents(){
+        return employeeService.findAll();
     }
 
-    @PostMapping(value = "api/v1/employee/")
-    public void postEmployee(EmployeeDTO input){
+    @PostMapping(value = "/employee")
+    public EmployeeEntity postStudent(@RequestBody EmployeeEntity student){
+        return employeeService.save(student);
     }
 
-    @PutMapping(value = "api/v1/employee/")
-    public List<EmployeeDTO> updateEmployee(EmployeeDTO input){
-        return null;
+    @PutMapping(value = "/employee/{id}")
+    public EmployeeEntity updateStudent(@PathVariable("id") Integer idStudent, EmployeeEntity employee){
+        EmployeeEntity actuallyEmployee = employeeService.findByID(idStudent);
+        actuallyEmployee.setBirthday(employee.getBirthday());
+        actuallyEmployee.setName(employee.getName());
+        actuallyEmployee.setSurname(employee.getSurname());
+        actuallyEmployee.setPhone(employee.getPhone());
+        actuallyEmployee.setCourse(employee.getCourse());
+        return employeeService.save(actuallyEmployee);
     }
 
-    @DeleteMapping(value = "api/v1/employee/{id}")
-    public List<EmployeeDTO> deleteEmployee(@PathVariable("id") Long id){
-        return null;
+    @DeleteMapping(value = "/employee/{id}")
+    public void deleteStudent(@PathVariable("id") Integer id){
+        employeeService.delete(id);
     }
 }
